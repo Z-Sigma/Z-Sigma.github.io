@@ -444,7 +444,7 @@
                     <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">I'm currently open to new opportunities and collaborations. Feel free to reach out!</p>
                 </div>
                 <div class="max-w-xl mx-auto scroll-reveal">
-                    <form class="glass-card p-8 rounded-xl" action="mailto:ajit.priyadarshi.che21@itbhu.ac.in" method="post" enctype="text/plain">
+                    <div class="glass-card p-8 rounded-xl">
                         <div class="mb-6">
                             <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
                             <input type="text" name="name" id="name" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
@@ -458,9 +458,9 @@
                             <textarea name="message" id="message" rows="5" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">Send Message</button>
+                            <button type="button" id="send-email-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">Send Message</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -624,11 +624,39 @@
                 }
             };
 
+            const contactForm = {
+                sendBtn: document.getElementById('send-email-btn'),
+                
+                init() {
+                    if (!this.sendBtn) return;
+                    this.sendBtn.addEventListener('click', () => this.sendEmail());
+                },
+
+                sendEmail() {
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+
+                    if (!message) {
+                        return;
+                    }
+
+                    const subject = `Portfolio Contact from ${name}`;
+                    const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+
+                    const mailtoLink = `mailto:ajit.priyadarshi.che21@itbhu.ac.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+                    window.location.href = mailtoLink;
+                }
+            };
+
+
             // Initialize all modules
             cursor.init();
             animations.init();
             projectFilter.init();
             particleAnimation.init();
+            contactForm.init();
             
             // Setup mobile menu (remains simple)
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -655,3 +683,4 @@
     </script>
 </body>
 </html>
+
