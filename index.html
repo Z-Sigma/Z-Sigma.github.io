@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajit Priyadarshi - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0a18;
+        }
+        .animated-gradient {
+            background: linear-gradient(-45deg, #0c0a18, #1e1b4b, #312e81, #4f46e5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #4f46e5;
+            border: 5px solid #1e1b4b;
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .project-card-content {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <!-- Header & Navigation -->
+    <header class="bg-black/30 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-extrabold text-white tracking-wider">AP.</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#resume" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Resume</a>
+                        <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
+                        <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700/50 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <i data-lucide="menu" class="block h-6 w-6"></i>
+                        <i data-lucide="x" class="hidden h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="text-gray-300 hover:bg-gray-700/50 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#resume" class="text-gray-300 hover:bg-gray-700/50 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Resume</a>
+                <a href="#projects" class="text-gray-300 hover:bg-gray-700/50 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#contact" class="text-gray-300 hover:bg-gray-700/50 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex items-center animated-gradient">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4 scroll-reveal">
+                    Hi, I'm Ajit Priyadarshi
+                </h1>
+                <p class="mt-4 text-lg sm:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto scroll-reveal" style="transition-delay: 150ms;">
+                    AI Engineer and Machine Learning enthusiast, building intelligent systems that solve real-world problems with data-driven insights.
+                </p>
+                <div class="mt-10 flex justify-center items-center space-x-6 scroll-reveal" style="transition-delay: 300ms;">
+                    <a href="https://www.linkedin.com/in/ajit-priyadarshi-/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-transform duration-300 hover:scale-110">
+                        <i data-lucide="linkedin" class="w-7 h-7"></i>
+                    </a>
+                     <a href="mailto:ajit.priyadarshi.che21@itbhu.ac.in" class="text-gray-300 hover:text-white transition-transform duration-300 hover:scale-110">
+                        <i data-lucide="mail" class="w-7 h-7"></i>
+                    </a>
+                    <a href="https://github.com/Z-Sigma" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-transform duration-300 hover:scale-110">
+                        <i data-lucide="github" class="w-7 h-7"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me -->
+        <section id="about" class="py-24 bg-[#0c0a18]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 scroll-reveal">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">About Me</h2>
+                </div>
+                <div class="max-w-5xl mx-auto">
+                    <div class="mb-12 scroll-reveal">
+                         <img src="https://www.webopedia.com/wp-content/uploads/2024/09/llm-large-language-model-explained-cover.webp" alt="Abstract AI visualization" class="rounded-lg w-full h-auto object-cover border-2 border-indigo-500/20 shadow-2xl shadow-indigo-500/10">
+                    </div>
+                    <div class="text-center scroll-reveal">
+                        <p class="text-lg text-gray-300 mb-4 max-w-3xl mx-auto">
+                            Hi, I'm Ajit — a final-year Chemical Engineering student at IIT (BHU) Varanasi with a strong interest in combining engineering principles with AI, Machine Learning, and Data Science. I work on applying data-driven approaches to solve problems in areas like autonomous systems, predictive modeling, and industrial optimization. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="py-24 bg-black/20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 scroll-reveal">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Professional Journey</h2>
+                    <p class="mt-4 text-lg text-gray-400">My experience, education, and skills.</p>
+                </div>
+                <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
+                    <!-- Left Column: Experience & Education -->
+                    <div class="lg:col-span-3">
+                        <!-- Experience -->
+                        <div class="scroll-reveal mb-12">
+                            <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3"><i data-lucide="briefcase" class="text-indigo-400"></i> Work Experience</h3>
+                            <div class="relative border-l-2 border-indigo-500/20 ml-4 pl-10">
+                                <div class="timeline-item relative mb-8">
+                                    <h4 class="text-xl font-semibold text-indigo-400">AI Engineer</h4>
+                                    <p class="font-medium text-white">Namekart <span class="text-gray-400 text-sm">(Mar '25 - Present)</span></p>
+                                    <p class="text-gray-300 mt-2 text-sm">Engineering a domain processing pipeline by transforming raw sales and market research data into actionable features and integrating AI-driven analytics.</p>
+                                </div>
+                                 <div class="timeline-item relative mb-8">
+                                    <h4 class="text-xl font-semibold text-indigo-400">ML Research Intern</h4>
+                                    <p class="font-medium text-white">MITACS GRI @ York University <span class="text-gray-400 text-sm">(Jun '24 - Aug '24)</span></p>
+                                    <p class="text-gray-300 mt-2 text-sm">Researched and built computational pipelines for predicting adsorption properties of organic pollutants using ensemble models.</p>
+                                </div>
+                                <div class="timeline-item relative mb-8">
+                                    <h4 class="text-xl font-semibold text-indigo-400">Autonomy Engineer</h4>
+                                    <p class="font-medium text-white">Team AVERERA, IIT(BHU) <span class="text-gray-400 text-sm">(Nov '22 - Aug '23)</span></p>
+                                    <p class="text-gray-300 mt-2 text-sm">Worked on computer vision for road segmentation (U-Net, PSP-Net), mapping, navigation, and SLAM for autonomous vehicles.</p>
+                                </div>
+                                <div class="timeline-item relative">
+                                    <h4 class="text-xl font-semibold text-indigo-400">Research Consultant</h4>
+                                    <p class="font-medium text-white">WorldQuant <span class="text-gray-400 text-sm">(Part-time, Remote)</span></p>
+                                    <p class="text-gray-300 mt-2 text-sm">Developing and backtesting quantitative trading signals (alphas) for financial markets.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Education -->
+                        <div class="scroll-reveal">
+                            <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3"><i data-lucide="graduation-cap" class="text-indigo-400"></i> Education</h3>
+                            <div class="relative border-l-2 border-indigo-500/20 ml-4 pl-10">
+                                <div class="timeline-item relative mb-8">
+                                    <h4 class="text-xl font-semibold text-indigo-400">B.Tech, Chemical Engineering & Technology</h4>
+                                    <p class="font-medium text-white">IIT (BHU), Varanasi <span class="text-gray-400 text-sm">(2021-2025)</span></p>
+                                </div>
+                                <div class="timeline-item relative">
+                                    <h4 class="text-xl font-semibold text-indigo-400">Secondary & High School Education (CBSE)</h4>
+                                    <p class="font-medium text-white">DAV Public School, Jasola Vihar, New Delhi</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Column: Skills -->
+                    <div class="lg:col-span-2">
+                         <div class="scroll-reveal">
+                            <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3"><i data-lucide="cpu" class="text-indigo-400"></i> Technical Skills</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-indigo-400 mb-3">Areas of Interest</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Machine Learning</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Deep Learning</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">CV & NLP</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Reinforcement Learning</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">LLMs & AI Agents</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Data Structures</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Algorithms</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-indigo-400 mb-3">Languages & Core Tech</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">C++</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Python</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">ROS</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">SQL</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Git/GitHub</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">AWS</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Azure</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-indigo-400 mb-3">AI & ML Libraries</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">PyTorch</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Tensorflow</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">JAX</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">LangChain</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">LangGraph</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Streamlit</span>
+                                    </div>
+                                </div>
+                                 <div>
+                                    <h4 class="text-lg font-semibold text-indigo-400 mb-3">MLOps & Tools</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">MLflow</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">DVC</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Docker</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Kubernetes</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Prometheus</span>
+                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Grafana</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Achievements -->
+                <div class="mt-20 scroll-reveal">
+                     <h3 class="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center gap-3"><i data-lucide="award" class="text-indigo-400"></i> Honours & Achievements</h3>
+                     <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="glass-card p-5 rounded-lg text-center">
+                            <i data-lucide="car" class="mx-auto h-10 w-10 text-indigo-400 mb-3"></i>
+                            <p class="font-semibold">6th Globally</p>
+                            <p class="text-sm text-gray-400">Shell's Autonomous Programming Competition '23</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-lg text-center">
+                            <i data-lucide="graduation-cap" class="mx-auto h-10 w-10 text-indigo-400 mb-3"></i>
+                            <p class="font-semibold">Amazon ML Summer School '23</p>
+                            <p class="text-sm text-gray-400">Mentee/Apprenticeship</p>
+                        </div>
+                         <div class="glass-card p-5 rounded-lg text-center">
+                            <i data-lucide="school" class="mx-auto h-10 w-10 text-indigo-400 mb-3"></i>
+                            <p class="font-semibold">2nd Position</p>
+                            <p class="text-sm text-gray-400">Optiver Winter School '23 by Economics Club, IIT Delhi</p>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 bg-[#0c0a18]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 scroll-reveal">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">My Projects</h2>
+                    <p class="mt-4 text-lg text-gray-400">A selection of my work from my personal portfolio.</p>
+                </div>
+                
+                <div id="all-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                     <div class="glass-card rounded-xl p-6 scroll-reveal">
+                        <div class="project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-3">Lead-Prioritization</h3>
+                            <p class="text-gray-400 text-sm">This project implements a reinforcement learning–based lead prioritization system using a Soft Actor-Critic (SAC) model. It ranks leads by priority scores using domain, lead site, and text summary features via attention-based feature extraction and a custom Gymnasium environment. The system supports both CLI and programmatic use, outputs CRM-ready and analytical files, and handles ~100–500 leads/min with GPU acceleration.</p>
+                        </div>
+                    </div>
+                     <div class="glass-card rounded-xl p-6 scroll-reveal">
+                        <div class="project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-3">Mule Account Detection</h3>
+                            <p class="text-gray-400 text-sm">A fraud detection system to identify mule accounts from a high-dimensional banking dataset. The methodology involved preprocessing over 150 anonymous features and training an XGBoost model, which achieved an accuracy of 99.64% and an R² score of 0.859.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-xl p-6 scroll-reveal">
+                        <div class="project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-3">AI Football Match Video Analysis System</h3>
+                            <p class="text-gray-400 text-sm">A comprehensive video analysis system for football matches. A YOLOv5 model was fine-tuned for object detection, combined with ByteTrack for object tracking and KMeans for team classification. The system processes match videos to provide detailed insights into game dynamics.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-xl p-6 scroll-reveal">
+                        <div class="project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-3">Essay AI - Language Proficiency Evaluator</h3>
+                            <p class="text-gray-400 text-sm">Utilized a fine-tuned DeBERTaV3 architecture to assess English language proficiency in essays. The model was enhanced with techniques like layer-wise learning rate decay and a combination of Huber & RMSE loss, achieving an average RMSE of 0.46 in 5-fold cross-validation.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-xl p-6 scroll-reveal">
+                        <div class="project-card-content">
+                            <h3 class="text-xl font-bold text-white mb-3">Market Impact Modelling</h3>
+                            <p class="text-gray-400 text-sm">This project models temporary price impact using a two-stage approach: estimating a universal shape parameter (γ ≈ 0.1979) via log-linear regression and predicting a dynamic impact coefficient (αₜ) with LightGBM. It processes multi-ticker order book data, engineering 15+ microstructure features. The pipeline includes data extraction, minute-level aggregation, and synthetic trade simulation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 bg-black/20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 scroll-reveal">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Get In Touch</h2>
+                    <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">I'm currently open to new opportunities and collaborations. Feel free to reach out!</p>
+                </div>
+                <div class="max-w-xl mx-auto scroll-reveal">
+                    <form class="glass-card p-8 rounded-xl" action="mailto:ajit.priyadarshi.che21@itbhu.ac.in" method="post" enctype="text/plain">
+                        <div class="mb-6">
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                            <input type="text" name="name" id="name" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                            <input type="email" name="email" id="email" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        </div>
+                        <div class="mb-6">
+                             <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                            <textarea name="message" id="message" rows="5" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0c0a18] border-t border-white/10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-400">
+            <p>&copy; 2024 Ajit Priyadarshi. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- UI & Animation Setup ---
+        const setupUI = () => {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcons = mobileMenuButton.querySelectorAll('i');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                menuIcons.forEach(icon => icon.classList.toggle('hidden'));
+            });
+
+            document.querySelectorAll('#mobile-menu a, header a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                         mobileMenu.classList.add('hidden');
+                         menuIcons[0].classList.remove('hidden');
+                         menuIcons[1].classList.add('hidden');
+                    }
+                });
+            });
+        };
+
+        // Scroll Reveal Animation
+        const initScrollReveal = () => {
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        };
+        
+        // --- App Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            setupUI();
+            initScrollReveal();
+        });
+    </script>
+</body>
+</html>
