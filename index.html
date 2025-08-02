@@ -8,20 +8,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        :root {
+            --bg-color: #0c0a18;
+            --text-color: #e5e7eb;
+            --subtle-text-color: #9ca3af;
+            --heading-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --card-hover-bg: rgba(255, 255, 255, 0.1);
+            --card-hover-border: rgba(255, 255, 255, 0.2);
+            --primary-accent: #4f46e5;
+            --secondary-accent: #1e1b4b;
+            --timeline-border: rgba(79, 70, 229, 0.2);
+            --timeline-dot-border: #1e1b4b;
+            --skill-bg: rgba(255, 255, 255, 0.1);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0c0a18;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            cursor: none;
         }
+        
+        h1, h2, h3, h4 { color: var(--heading-color); }
+        .text-indigo-400 { color: var(--primary-accent); }
+        .text-gray-400 { color: var(--subtle-text-color); }
+        .text-gray-300 { color: var(--text-color); }
+
         .animated-gradient {
             background: linear-gradient(-45deg, #0c0a18, #1e1b4b, #312e81, #4f46e5);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
         }
+
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -30,9 +56,14 @@
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            background-color: #4f46e5;
-            border: 5px solid #1e1b4b;
+            background-color: var(--primary-accent);
+            border: 5px solid var(--timeline-dot-border);
         }
+        
+        .relative.border-l-2 {
+            border-color: var(--timeline-border);
+        }
+
         .scroll-reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -42,33 +73,88 @@
             opacity: 1;
             transform: translateY(0);
         }
+
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--card-bg);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--card-border);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
+            transform-style: preserve-3d;
         }
         .glass-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
+            background: var(--card-hover-bg);
+            border: 1px solid var(--card-hover-border);
+            transform: translateY(-5px) perspective(1000px) rotateX(2deg) rotateY(-2deg);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
+        
         .project-card-content {
             flex-grow: 1;
+        }
+        
+        .bg-black\/30 { background-color: rgba(0,0,0,0.3); }
+        .bg-black\/20 { background-color: rgba(0,0,0,0.2); }
+        .bg-white\/10 { background-color: var(--skill-bg); }
+        .border-white\/10 { border-color: rgba(255,255,255,0.1); }
+
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-accent);
+            opacity: 0.5;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, opacity 0.2s;
+            z-index: 9999;
+        }
+        .cursor-dot {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--text-color);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+        .cursor-grow {
+            width: 40px;
+            height: 40px;
+            opacity: 0.2;
+        }
+        
+        .project-filter-btn.active {
+            background-color: var(--primary-accent);
+            color: white !important;
+        }
+        .project-card {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .project-card.filtered-out {
+            opacity: 0.2;
+            transform: scale(0.95);
+        }
+        #particle-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
         }
     </style>
 </head>
 <body class="text-gray-200">
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
 
     <!-- Header & Navigation -->
     <header class="bg-black/30 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0">
-                    <a href="#" class="text-2xl font-extrabold text-white tracking-wider">AP.</a>
+                    <a href="#" class="text-2xl font-extrabold tracking-wider cursor-pointer">AP.</a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
@@ -78,7 +164,7 @@
                         <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
                     </div>
                 </div>
-                <div class="md:hidden">
+                <div class="md:hidden ml-2">
                     <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700/50 focus:outline-none">
                         <span class="sr-only">Open main menu</span>
                         <i data-lucide="menu" class="block h-6 w-6"></i>
@@ -101,7 +187,7 @@
         <!-- Hero Section -->
         <section id="hero" class="relative min-h-screen flex items-center animated-gradient">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4 scroll-reveal">
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 scroll-reveal">
                     Hi, I'm Ajit Priyadarshi
                 </h1>
                 <p class="mt-4 text-lg sm:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto scroll-reveal" style="transition-delay: 150ms;">
@@ -121,30 +207,52 @@
             </div>
         </section>
 
-        <!-- About Me -->
-        <section id="about" class="py-24 bg-[#0c0a18]">
+        <!-- About Me Section -->
+        <section id="about" class="relative py-24 overflow-hidden">
+            <div id="tsparticles" class="absolute inset-0 -z-10 h-full w-full"></div>
+
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16 scroll-reveal">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">About Me</h2>
-                </div>
-                <div class="max-w-5xl mx-auto">
-                    <div class="mb-12 scroll-reveal">
-                         <img src="https://www.webopedia.com/wp-content/uploads/2024/09/llm-large-language-model-explained-cover.webp" alt="Abstract AI visualization" class="rounded-lg w-full h-auto object-cover border-2 border-indigo-500/20 shadow-2xl shadow-indigo-500/10">
-                    </div>
-                    <div class="text-center scroll-reveal">
-                        <p class="text-lg text-gray-300 mb-4 max-w-3xl mx-auto">
-                            Hi, I'm Ajit — a final-year Chemical Engineering student at IIT (BHU) Varanasi with a strong interest in combining engineering principles with AI, Machine Learning, and Data Science. I work on applying data-driven approaches to solve problems in areas like autonomous systems, predictive modeling, and industrial optimization. 
-                        </p>
-                    </div>
-                </div>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold">About Me</h2>
+            </div>
+            <div class="max-w-5xl mx-auto text-center">
+                <p class="text-lg text-gray-300 mb-4 max-w-3xl mx-auto">
+                Hi, I'm Ajit — a final-year Chemical Engineering student at IIT (BHU) Varanasi with a passion for blending core engineering principles with AI, Machine Learning, and Data Science.
+                </p>
+            </div>
             </div>
         </section>
+
+        <!-- ✅ tsParticles Scripts (add here, before </body>) -->
+        <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+        <script>
+            tsParticles.load("tsparticles", {
+            fullScreen: { enable: false },
+            background: { color: "#000000" },
+            fpsLimit: 60,
+            interactivity: {
+                events: { onHover: { enable: true, mode: "grab" }, resize: true },
+                modes: { grab: { distance: 200, links: { opacity: 0.4 } } }
+            },
+            particles: {
+                color: { value: "#ffffff" },
+                links: { color: "#66ccff", distance: 120, enable: true, opacity: 0.5, width: 1 },
+                move: { enable: true, speed: 0.3, random: true, outModes: { default: "bounce" } },
+                number: { value: 120, density: { enable: true, area: 800 } },
+                opacity: { value: 0.6, random: true },
+                shape: { type: "circle" },
+                size: { value: { min: 1, max: 3 }, random: true }
+            },
+            detectRetina: true
+            });
+        </script>
+
 
         <!-- Resume Section -->
         <section id="resume" class="py-24 bg-black/20">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 scroll-reveal">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Professional Journey</h2>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">Professional Journey</h2>
                     <p class="mt-4 text-lg text-gray-400">My experience, education, and skills.</p>
                 </div>
                 <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
@@ -152,41 +260,41 @@
                     <div class="lg:col-span-3">
                         <!-- Experience -->
                         <div class="scroll-reveal mb-12">
-                            <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3"><i data-lucide="briefcase" class="text-indigo-400"></i> Work Experience</h3>
-                            <div class="relative border-l-2 border-indigo-500/20 ml-4 pl-10">
+                            <h3 class="text-2xl font-bold mb-8 flex items-center gap-3"><i data-lucide="briefcase" class="text-indigo-400"></i> Work Experience</h3>
+                            <div class="relative border-l-2 ml-4 pl-10">
                                 <div class="timeline-item relative mb-8">
                                     <h4 class="text-xl font-semibold text-indigo-400">AI Engineer</h4>
-                                    <p class="font-medium text-white">Namekart <span class="text-gray-400 text-sm">(Mar '25 - Present)</span></p>
+                                    <p class="font-medium">Namekart <span class="text-gray-400 text-sm">(Mar '25 - Present)</span></p>
                                     <p class="text-gray-300 mt-2 text-sm">Engineering a domain processing pipeline by transforming raw sales and market research data into actionable features and integrating AI-driven analytics.</p>
                                 </div>
                                  <div class="timeline-item relative mb-8">
                                     <h4 class="text-xl font-semibold text-indigo-400">ML Research Intern</h4>
-                                    <p class="font-medium text-white">MITACS GRI @ York University <span class="text-gray-400 text-sm">(Jun '24 - Aug '24)</span></p>
+                                    <p class="font-medium">MITACS GRI @ York University <span class="text-gray-400 text-sm">(Jun '24 - Aug '24)</span></p>
                                     <p class="text-gray-300 mt-2 text-sm">Researched and built computational pipelines for predicting adsorption properties of organic pollutants using ensemble models.</p>
                                 </div>
                                 <div class="timeline-item relative mb-8">
                                     <h4 class="text-xl font-semibold text-indigo-400">Autonomy Engineer</h4>
-                                    <p class="font-medium text-white">Team AVERERA, IIT(BHU) <span class="text-gray-400 text-sm">(Nov '22 - Aug '23)</span></p>
+                                    <p class="font-medium">Team AVERERA, IIT(BHU) <span class="text-gray-400 text-sm">(Nov '22 - Aug '23)</span></p>
                                     <p class="text-gray-300 mt-2 text-sm">Worked on computer vision for road segmentation (U-Net, PSP-Net), mapping, navigation, and SLAM for autonomous vehicles.</p>
                                 </div>
                                 <div class="timeline-item relative">
                                     <h4 class="text-xl font-semibold text-indigo-400">Research Consultant</h4>
-                                    <p class="font-medium text-white">WorldQuant <span class="text-gray-400 text-sm">(Part-time, Remote)</span></p>
+                                    <p class="font-medium">WorldQuant <span class="text-gray-400 text-sm">(Part-time, Remote)</span></p>
                                     <p class="text-gray-300 mt-2 text-sm">Developing and backtesting quantitative trading signals (alphas) for financial markets.</p>
                                 </div>
                             </div>
                         </div>
                         <!-- Education -->
                         <div class="scroll-reveal">
-                            <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3"><i data-lucide="graduation-cap" class="text-indigo-400"></i> Education</h3>
-                            <div class="relative border-l-2 border-indigo-500/20 ml-4 pl-10">
+                            <h3 class="text-2xl font-bold mb-8 flex items-center gap-3"><i data-lucide="graduation-cap" class="text-indigo-400"></i> Education</h3>
+                            <div class="relative border-l-2 ml-4 pl-10">
                                 <div class="timeline-item relative mb-8">
                                     <h4 class="text-xl font-semibold text-indigo-400">B.Tech, Chemical Engineering & Technology</h4>
-                                    <p class="font-medium text-white">IIT (BHU), Varanasi <span class="text-gray-400 text-sm">(2021-2025)</span></p>
+                                    <p class="font-medium">IIT (BHU), Varanasi <span class="text-gray-400 text-sm">(2021-2025)</span></p>
                                 </div>
                                 <div class="timeline-item relative">
                                     <h4 class="text-xl font-semibold text-indigo-400">Secondary & High School Education (CBSE)</h4>
-                                    <p class="font-medium text-white">DAV Public School, Jasola Vihar, New Delhi</p>
+                                    <p class="font-medium">DAV Public School, Jasola Vihar, New Delhi</p>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +302,7 @@
                     <!-- Right Column: Skills -->
                     <div class="lg:col-span-2">
                          <div class="scroll-reveal">
-                            <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3"><i data-lucide="cpu" class="text-indigo-400"></i> Technical Skills</h3>
+                            <h3 class="text-2xl font-bold mb-8 flex items-center gap-3"><i data-lucide="cpu" class="text-indigo-400"></i> Technical Skills</h3>
                             <div class="space-y-6">
                                 <div>
                                     <h4 class="text-lg font-semibold text-indigo-400 mb-3">Areas of Interest</h4>
@@ -248,7 +356,7 @@
                 </div>
                  <!-- Achievements -->
                 <div class="mt-20 scroll-reveal">
-                     <h3 class="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center gap-3"><i data-lucide="award" class="text-indigo-400"></i> Honours & Achievements</h3>
+                     <h3 class="text-2xl font-bold mb-8 text-center flex items-center justify-center gap-3"><i data-lucide="award" class="text-indigo-400"></i> Honours & Achievements</h3>
                      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <div class="glass-card p-5 rounded-lg text-center">
                             <i data-lucide="car" class="mx-auto h-10 w-10 text-indigo-400 mb-3"></i>
@@ -271,42 +379,57 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-24 bg-[#0c0a18]">
+        <section id="projects" class="py-24">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 scroll-reveal">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">My Projects</h2>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">My Projects</h2>
                     <p class="mt-4 text-lg text-gray-400">A selection of my work from my personal portfolio.</p>
+                </div>
+
+                <div id="project-filters" class="flex flex-wrap justify-center gap-2 mb-12 scroll-reveal">
+                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10 active" data-filter="all">All</button>
+                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10 active" data-filter="ml">ML</button>
+                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10" data-filter="rl">Reinforcement Learning</button>
+                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10" data-filter="cv">Computer Vision</button>
+                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10" data-filter="nlp">NLP</button>
+                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10" data-filter="finance">Finance</button>
                 </div>
                 
                 <div id="all-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                     <div class="glass-card rounded-xl p-6 scroll-reveal">
+                     <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="rl">
                         <div class="project-card-content">
-                            <h3 class="text-xl font-bold text-white mb-3">Lead-Prioritization</h3>
+                            <h3 class="text-xl font-bold mb-3">Lead-Prioritization</h3>
                             <p class="text-gray-400 text-sm">This project implements a reinforcement learning–based lead prioritization system using a Soft Actor-Critic (SAC) model. It ranks leads by priority scores using domain, lead site, and text summary features via attention-based feature extraction and a custom Gymnasium environment. The system supports both CLI and programmatic use, outputs CRM-ready and analytical files, and handles ~100–500 leads/min with GPU acceleration.</p>
                         </div>
                     </div>
-                     <div class="glass-card rounded-xl p-6 scroll-reveal">
+                     <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="ml,finance">
                         <div class="project-card-content">
-                            <h3 class="text-xl font-bold text-white mb-3">Mule Account Detection</h3>
+                            <h3 class="text-xl font-bold mb-3">Mule Account Detection</h3>
                             <p class="text-gray-400 text-sm">A fraud detection system to identify mule accounts from a high-dimensional banking dataset. The methodology involved preprocessing over 150 anonymous features and training an XGBoost model, which achieved an accuracy of 99.64% and an R² score of 0.859.</p>
                         </div>
                     </div>
-                    <div class="glass-card rounded-xl p-6 scroll-reveal">
+                    <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="cv">
                         <div class="project-card-content">
-                            <h3 class="text-xl font-bold text-white mb-3">AI Football Match Video Analysis System</h3>
+                            <h3 class="text-xl font-bold mb-3">AI Football Match Video Analysis System</h3>
                             <p class="text-gray-400 text-sm">A comprehensive video analysis system for football matches. A YOLOv5 model was fine-tuned for object detection, combined with ByteTrack for object tracking and KMeans for team classification. The system processes match videos to provide detailed insights into game dynamics.</p>
                         </div>
                     </div>
-                    <div class="glass-card rounded-xl p-6 scroll-reveal">
+                    <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="nlp">
                         <div class="project-card-content">
-                            <h3 class="text-xl font-bold text-white mb-3">Essay AI - Language Proficiency Evaluator</h3>
+                            <h3 class="text-xl font-bold mb-3">Essay AI - Language Proficiency Evaluator</h3>
                             <p class="text-gray-400 text-sm">Utilized a fine-tuned DeBERTaV3 architecture to assess English language proficiency in essays. The model was enhanced with techniques like layer-wise learning rate decay and a combination of Huber & RMSE loss, achieving an average RMSE of 0.46 in 5-fold cross-validation.</p>
                         </div>
                     </div>
-                    <div class="glass-card rounded-xl p-6 scroll-reveal">
+                    <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="ml,finance">
                         <div class="project-card-content">
-                            <h3 class="text-xl font-bold text-white mb-3">Market Impact Modelling</h3>
+                            <h3 class="text-xl font-bold mb-3">Market Impact Modelling</h3>
                             <p class="text-gray-400 text-sm">This project models temporary price impact using a two-stage approach: estimating a universal shape parameter (γ ≈ 0.1979) via log-linear regression and predicting a dynamic impact coefficient (αₜ) with LightGBM. It processes multi-ticker order book data, engineering 15+ microstructure features. The pipeline includes data extraction, minute-level aggregation, and synthetic trade simulation.</p>
+                        </div>
+                    </div>
+                    <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="cv">
+                        <div class="project-card-content">
+                            <h3 class="text-xl font-bold mb-3">Plant Disease Classification</h3>
+                            <p class="text-gray-400 text-sm">This project implements a plant disease classification system using transfer learning with ResNet50 and Focal Loss to address class imbalance. It supports disease detection for pepper, potato, and tomato plants across 8 classes. The pipeline includes data augmentation, training, evaluation, and prediction. The model achieves ~98.5% accuracy and ~98.2% macro recall.</p>
                         </div>
                     </div>
                 </div>
@@ -317,7 +440,7 @@
         <section id="contact" class="py-24 bg-black/20">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 scroll-reveal">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Get In Touch</h2>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold">Get In Touch</h2>
                     <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">I'm currently open to new opportunities and collaborations. Feel free to reach out!</p>
                 </div>
                 <div class="max-w-xl mx-auto scroll-reveal">
@@ -351,12 +474,163 @@
     </footer>
 
     <script>
-        // --- UI & Animation Setup ---
-        const setupUI = () => {
-            // Initialize Lucide Icons
-            lucide.createIcons();
+        // --- App Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = {
+                cursorEl: document.querySelector('.cursor'),
+                dotEl: document.querySelector('.cursor-dot'),
+                
+                init() {
+                    window.addEventListener('mousemove', e => {
+                        this.cursorEl.style.left = `${e.clientX}px`;
+                        this.cursorEl.style.top = `${e.clientY}px`;
+                        this.dotEl.style.left = `${e.clientX}px`;
+                        this.dotEl.style.top = `${e.clientY}px`;
+                    });
 
-            // Mobile Menu Toggle
+                    document.querySelectorAll('a, button, [role="button"], input, textarea').forEach(el => {
+                        el.addEventListener('mouseenter', () => this.cursorEl.classList.add('cursor-grow'));
+                        el.addEventListener('mouseleave', () => this.cursorEl.classList.remove('cursor-grow'));
+                    });
+                }
+            };
+
+            const animations = {
+                init() {
+                    const revealElements = document.querySelectorAll('.scroll-reveal');
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    revealElements.forEach(el => observer.observe(el));
+                }
+            };
+            
+            const projectFilter = {
+                init() {
+                    const filterButtons = document.querySelectorAll('.project-filter-btn');
+                    const projectCards = document.querySelectorAll('.project-card');
+
+                    filterButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const filter = button.dataset.filter;
+                            
+                            // Update active button
+                            filterButtons.forEach(btn => btn.classList.remove('active'));
+                            button.classList.add('active');
+
+                            // Filter projects
+                            projectCards.forEach(card => {
+                                const tags = card.dataset.tags.split(',');
+                                if (filter === 'all' || tags.includes(filter)) {
+                                    card.classList.remove('filtered-out');
+                                } else {
+                                    card.classList.add('filtered-out');
+                                }
+                            });
+                        });
+                    });
+                }
+            };
+            
+            const particleAnimation = {
+                canvas: document.getElementById('particle-canvas'),
+                ctx: null,
+                particles: [],
+                mouse: { x: null, y: null, radius: 150 },
+                
+                init() {
+                    if (!this.canvas) return;
+                    this.ctx = this.canvas.getContext('2d');
+                    this.resizeCanvas();
+                    window.addEventListener('resize', () => this.resizeCanvas());
+                    window.addEventListener('mousemove', e => {
+                        const rect = this.canvas.getBoundingClientRect();
+                        this.mouse.x = e.clientX - rect.left;
+                        this.mouse.y = e.clientY - rect.top;
+                    });
+                    this.createParticles();
+                    this.animate();
+                },
+
+                resizeCanvas() {
+                    this.canvas.width = this.canvas.offsetWidth;
+                    this.canvas.height = this.canvas.offsetHeight;
+                    this.particles = []; // Recreate particles on resize
+                    this.createParticles();
+                },
+
+                createParticles() {
+                    const particleCount = Math.floor(this.canvas.width / 20);
+                    for (let i = 0; i < particleCount; i++) {
+                        let size = Math.random() * 2 + 1;
+                        let x = Math.random() * (this.canvas.width - size * 2) + size;
+                        let y = Math.random() * (this.canvas.height - size * 2) + size;
+                        let directionX = (Math.random() * .4) - .2;
+                        let directionY = (Math.random() * .4) - .2;
+                        let color = 'rgba(79, 70, 229, 0.6)';
+                        this.particles.push({ x, y, directionX, directionY, size, color });
+                    }
+                },
+
+                animate() {
+                    requestAnimationFrame(() => this.animate());
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                    for (let i = 0; i < this.particles.length; i++) {
+                        this.updateParticle(this.particles[i]);
+                    }
+                    this.connectParticles();
+                },
+
+                updateParticle(p) {
+                    if (p.x + p.size > this.canvas.width || p.x - p.size < 0) p.directionX = -p.directionX;
+                    if (p.y + p.size > this.canvas.height || p.y - p.size < 0) p.directionY = -p.directionY;
+                    p.x += p.directionX;
+                    p.y += p.directionY;
+                    this.drawParticle(p);
+                },
+
+                drawParticle(p) {
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2, false);
+                    this.ctx.fillStyle = p.color;
+                    this.ctx.fill();
+                },
+                
+                connectParticles() {
+                    let opacityValue = 1;
+                    for (let a = 0; a < this.particles.length; a++) {
+                        for (let b = a; b < this.particles.length; b++) {
+                            let distance = Math.sqrt(
+                                (this.particles[a].x - this.particles[b].x) * (this.particles[a].x - this.particles[b].x) +
+                                (this.particles[a].y - this.particles[b].y) * (this.particles[a].y - this.particles[b].y)
+                            );
+                            if (distance < 120) {
+                                opacityValue = 1 - (distance / 120);
+                                this.ctx.strokeStyle = `rgba(79, 70, 229, ${opacityValue})`;
+                                this.ctx.lineWidth = 1;
+                                this.ctx.beginPath();
+                                this.ctx.moveTo(this.particles[a].x, this.particles[a].y);
+                                this.ctx.lineTo(this.particles[b].x, this.particles[b].y);
+                                this.ctx.stroke();
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Initialize all modules
+            cursor.init();
+            animations.init();
+            projectFilter.init();
+            particleAnimation.init();
+            
+            // Setup mobile menu (remains simple)
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             const menuIcons = mobileMenuButton.querySelectorAll('i');
@@ -375,28 +649,8 @@
                     }
                 });
             });
-        };
-
-        // Scroll Reveal Animation
-        const initScrollReveal = () => {
-            const revealElements = document.querySelectorAll('.scroll-reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            revealElements.forEach(el => {
-                observer.observe(el);
-            });
-        };
-        
-        // --- App Initialization ---
-        document.addEventListener('DOMContentLoaded', () => {
-            setupUI();
-            initScrollReveal();
+            
+            lucide.createIcons();
         });
     </script>
 </body>
