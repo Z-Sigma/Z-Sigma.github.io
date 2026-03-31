@@ -1,687 +1,468 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajit Priyadarshi - Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Ajit Priyadarshi | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0c0a18;
-            --text-color: #e5e7eb;
-            --subtle-text-color: #9ca3af;
-            --heading-color: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --card-hover-bg: rgba(255, 255, 255, 0.1);
-            --card-hover-border: rgba(255, 255, 255, 0.2);
-            --primary-accent: #4f46e5;
-            --secondary-accent: #1e1b4b;
-            --timeline-border: rgba(79, 70, 229, 0.2);
-            --timeline-dot-border: #1e1b4b;
-            --skill-bg: rgba(255, 255, 255, 0.1);
+            --bg: #050505;
+            --notion-bg: #1B1B1B;
+            --notion-text: #E3E3E3;
+            --notion-text-muted: rgba(227, 227, 227, 0.5);
+            --notion-border: rgba(255, 255, 255, 0.08);
+            --accent: #3E8BFF;
+            --accent-glow: rgba(62, 139, 255, 0.4);
+            --glass: rgba(255, 255, 255, 0.02);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            cursor: none;
-        }
-        
-        h1, h2, h3, h4 { color: var(--heading-color); }
-        .text-indigo-400 { color: var(--primary-accent); }
-        .text-gray-400 { color: var(--subtle-text-color); }
-        .text-gray-300 { color: var(--text-color); }
-
-        .animated-gradient {
-            background: linear-gradient(-45deg, #0c0a18, #1e1b4b, #312e81, #4f46e5);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--notion-text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 40px;
+            position: relative;
         }
 
-        .timeline-item::before {
+        /* Subtle Glow in background */
+        main::before {
             content: '';
             position: absolute;
-            left: -31px;
-            top: 4px;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background-color: var(--primary-accent);
-            border: 5px solid var(--timeline-dot-border);
-        }
-        
-        .relative.border-l-2 {
-            border-color: var(--timeline-border);
+            top: -200px;
+            left: 50%;
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(62, 139, 255, 0.03) 0%, transparent 60%);
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: -1;
         }
 
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--card-border);
-            transition: all 0.3s ease;
+        .breadcrumb {
             display: flex;
-            flex-direction: column;
-            transform-style: preserve-3d;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--notion-text-muted);
+            margin-bottom: 48px;
+            letter-spacing: 0.02em;
         }
-        .glass-card:hover {
-            background: var(--card-hover-bg);
-            border: 1px solid var(--card-hover-border);
-            transform: translateY(-5px) perspective(1000px) rotateX(2deg) rotateY(-2deg);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .project-card-content {
-            flex-grow: 1;
-        }
-        
-        .bg-black\/30 { background-color: rgba(0,0,0,0.3); }
-        .bg-black\/20 { background-color: rgba(0,0,0,0.2); }
-        .bg-white\/10 { background-color: var(--skill-bg); }
-        .border-white\/10 { border-color: rgba(255,255,255,0.1); }
 
-        .cursor {
-            position: fixed;
+        .hero {
+            margin-bottom: 64px;
+        }
+
+        .hero-header {
+            display: flex;
+            align-items: flex-end;
+            gap: 24px;
+            margin-bottom: 8px;
+        }
+
+        .page-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 20px;
+            background: #111;
+            border: 1px solid var(--notion-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            background-image: url('https://github.com/Z-Sigma.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            font-size: 44px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .role {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--notion-text-muted);
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--notion-text-muted);
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--notion-border);
+            margin: 64px 0 24px;
+        }
+
+        .experience-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            border: 1px solid transparent;
+        }
+
+        .experience-item:hover {
+            background: var(--glass);
+            border-color: var(--notion-border);
+            transform: translateX(4px);
+        }
+
+        .exp-role {
+            font-weight: 600;
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .exp-company {
+            font-size: 14px;
+            color: var(--notion-text-muted);
+        }
+
+        .exp-period {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--notion-text-muted);
+            width: 160px;
+            text-align: right;
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .tech-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 14px;
+            background: var(--glass);
+            border: 1px solid var(--notion-border);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            height: 44px;
+            /* Fixed height for uniform thickness */
+            white-space: nowrap;
+        }
+
+        .tech-icon {
             width: 20px;
             height: 20px;
-            border-radius: 50%;
-            background-color: var(--primary-accent);
-            opacity: 0.5;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, opacity 0.2s;
-            z-index: 9999;
+            object-fit: contain;
         }
-        .cursor-dot {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background-color: var(--text-color);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
         }
-        .cursor-grow {
-            width: 40px;
-            height: 40px;
-            opacity: 0.2;
+
+        .notion-card {
+            padding: 24px;
+            background: var(--glass);
+            border: 1px solid var(--notion-border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
         }
-        
-        .project-filter-btn.active {
-            background-color: var(--primary-accent);
-            color: white !important;
+
+        .notion-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.03);
         }
-        .project-card {
-            transition: opacity 0.4s ease, transform 0.4s ease;
+
+        .card-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
         }
-        .project-card.filtered-out {
-            opacity: 0.2;
-            transform: scale(0.95);
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--notion-text-muted);
+            line-height: 1.6;
         }
-        #particle-canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
+
+        footer {
+            margin-top: 120px;
+            padding-top: 40px;
+            border-top: 1px solid var(--notion-border);
+            color: var(--notion-text-muted);
+            font-size: 13px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 60px 24px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .experience-item {
+                flex-direction: column;
+                gap: 4px;
+                padding: 12px;
+            }
+
+            .exp-period {
+                text-align: left;
+                width: auto;
+                font-size: 13px;
+            }
+
+            .hero-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
         }
     </style>
 </head>
-<body class="text-gray-200">
-    <div class="cursor"></div>
-    <div class="cursor-dot"></div>
 
-    <!-- Header & Navigation -->
-    <header class="bg-black/30 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <a href="#" class="text-2xl font-extrabold tracking-wider cursor-pointer">AP.</a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                        <a href="#resume" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Resume</a>
-                        <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
-                        <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
-                    </div>
-                </div>
-                <div class="md:hidden ml-2">
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700/50 focus:outline-none">
-                        <span class="sr-only">Open main menu</span>
-                        <i data-lucide="menu" class="block h-6 w-6"></i>
-                        <i data-lucide="x" class="hidden h-6 w-6"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="mobile-menu" class="md:hidden hidden">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#about" class="text-gray-300 hover:bg-gray-700/50 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
-                <a href="#resume" class="text-gray-300 hover:bg-gray-700/50 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Resume</a>
-                <a href="#projects" class="text-gray-300 hover:bg-gray-700/50 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-                <a href="#contact" class="text-gray-300 hover:bg-gray-700/50 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
-            </div>
-        </div>
-    </header>
-
+<body>
     <main>
-        <!-- Hero Section -->
-        <section id="hero" class="relative min-h-screen flex items-center animated-gradient">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 scroll-reveal">
-                    Hi, I'm Ajit Priyadarshi
-                </h1>
-                <p class="mt-4 text-lg sm:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto scroll-reveal" style="transition-delay: 150ms;">
-                    AI Engineer and Machine Learning enthusiast, building intelligent systems that solve real-world problems with data-driven insights.
-                </p>
-                <div class="mt-10 flex justify-center items-center space-x-6 scroll-reveal" style="transition-delay: 300ms;">
-                    <a href="https://www.linkedin.com/in/ajit-priyadarshi-/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-transform duration-300 hover:scale-110">
-                        <i data-lucide="linkedin" class="w-7 h-7"></i>
-                    </a>
-                     <a href="mailto:ajitpriyadarshi2007@gmail.com" class="text-gray-300 hover:text-white transition-transform duration-300 hover:scale-110">
-                        <i data-lucide="mail" class="w-7 h-7"></i>
-                    </a>
-                    <a href="https://github.com/Z-Sigma" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-transform duration-300 hover:scale-110">
-                        <i data-lucide="github" class="w-7 h-7"></i>
-                    </a>
+        <nav class="breadcrumb">
+            <span>Home</span> <span style="opacity: 0.3">/</span> <span>Ajit Priyadarshi</span>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-header">
+                <div class="page-icon"></div>
+                <div>
+                    <h1 id="name">Ajit Priyadarshi
+                        <a href="https://www.linkedin.com/in/ajit-priyadarshi-7b6131238/" target="_blank"
+                            style="margin-left: 12px; opacity: 0.8; transition: opacity 0.2s; display: inline-block; vertical-align: middle;">
+                            <img src="https://skillicons.dev/icons?i=linkedin"
+                                style="width: 24px; filter: grayscale(1) invert(1);">
+                        </a>
+                    </h1>
+                    <p class="role">AI/ML Engineer | Data Scientist</p>
                 </div>
             </div>
         </section>
 
-        <!-- About Me Section -->
-        <section id="about" class="relative py-24 overflow-hidden">
-            <div id="tsparticles" class="absolute inset-0 -z-10 h-full w-full"></div>
-
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-extrabold">About Me</h2>
-            </div>
-            <div class="max-w-5xl mx-auto text-center">
-                <p class="text-lg text-gray-300 mb-4 max-w-3xl mx-auto">
-                Hi, I'm Ajit — a final-year Chemical Engineering student at IIT (BHU) Varanasi with a passion for blending core engineering principles with AI, Machine Learning, and Data Science.
-                </p>
-            </div>
-            </div>
-        </section>
-
-        <!-- ✅ tsParticles Scripts (add here, before </body>) -->
-        <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-        <script>
-            tsParticles.load("tsparticles", {
-            fullScreen: { enable: false },
-            background: { color: "#000000" },
-            fpsLimit: 60,
-            interactivity: {
-                events: { onHover: { enable: true, mode: "grab" }, resize: true },
-                modes: { grab: { distance: 200, links: { opacity: 0.4 } } }
-            },
-            particles: {
-                color: { value: "#ffffff" },
-                links: { color: "#66ccff", distance: 120, enable: true, opacity: 0.5, width: 1 },
-                move: { enable: true, speed: 0.3, random: true, outModes: { default: "bounce" } },
-                number: { value: 120, density: { enable: true, area: 800 } },
-                opacity: { value: 0.6, random: true },
-                shape: { type: "circle" },
-                size: { value: { min: 1, max: 3 }, random: true }
-            },
-            detectRetina: true
-            });
-        </script>
-
-
-        <!-- Resume Section -->
-        <section id="resume" class="py-24 bg-black/20">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16 scroll-reveal">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold">Professional Journey</h2>
-                    <p class="mt-4 text-lg text-gray-400">My experience, education, and skills.</p>
+        <section id="tech">
+            <h2>Tech Stack</h2>
+            <div class="logo-grid">
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=py"> Python</div>
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=cpp"> C++</div>
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=pytorch"> PyTorch
                 </div>
-                <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
-                    <!-- Left Column: Experience & Education -->
-                    <div class="lg:col-span-3">
-                        <!-- Experience -->
-                        <div class="scroll-reveal mb-12">
-                            <h3 class="text-2xl font-bold mb-8 flex items-center gap-3"><i data-lucide="briefcase" class="text-indigo-400"></i> Work Experience</h3>
-                            <div class="relative border-l-2 ml-4 pl-10">
-                                <div class="timeline-item relative mb-8">
-                                    <h4 class="text-xl font-semibold text-indigo-400">AI Engineer</h4>
-                                    <p class="font-medium">Namekart <span class="text-gray-400 text-sm">(Mar '25 - Present)</span></p>
-                                    <p class="text-gray-300 mt-2 text-sm">Engineering a domain processing pipeline by transforming raw sales and market research data into actionable features and integrating AI-driven analytics.</p>
-                                </div>
-                                 <div class="timeline-item relative mb-8">
-                                    <h4 class="text-xl font-semibold text-indigo-400">ML Research Intern</h4>
-                                    <p class="font-medium">MITACS GRI @ York University <span class="text-gray-400 text-sm">(Jun '24 - Aug '24)</span></p>
-                                    <p class="text-gray-300 mt-2 text-sm">Researched and built computational pipelines for predicting adsorption properties of organic pollutants using ensemble models.</p>
-                                </div>
-                                <div class="timeline-item relative mb-8">
-                                    <h4 class="text-xl font-semibold text-indigo-400">Autonomy Engineer</h4>
-                                    <p class="font-medium">Team AVERERA, IIT(BHU) <span class="text-gray-400 text-sm">(Nov '22 - Aug '23)</span></p>
-                                    <p class="text-gray-300 mt-2 text-sm">Worked on computer vision for road segmentation (U-Net, PSP-Net), mapping, navigation, and SLAM for autonomous vehicles.</p>
-                                </div>
-                                <div class="timeline-item relative">
-                                    <h4 class="text-xl font-semibold text-indigo-400">Research Consultant</h4>
-                                    <p class="font-medium">WorldQuant <span class="text-gray-400 text-sm">(Part-time, Remote)</span></p>
-                                    <p class="text-gray-300 mt-2 text-sm">Developing and backtesting quantitative trading signals (alphas) for financial markets.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Education -->
-                        <div class="scroll-reveal">
-                            <h3 class="text-2xl font-bold mb-8 flex items-center gap-3"><i data-lucide="graduation-cap" class="text-indigo-400"></i> Education</h3>
-                            <div class="relative border-l-2 ml-4 pl-10">
-                                <div class="timeline-item relative mb-8">
-                                    <h4 class="text-xl font-semibold text-indigo-400">B.Tech, Chemical Engineering & Technology</h4>
-                                    <p class="font-medium">IIT (BHU), Varanasi <span class="text-gray-400 text-sm">(2021-2025)</span></p>
-                                </div>
-                                <div class="timeline-item relative">
-                                    <h4 class="text-xl font-semibold text-indigo-400">Secondary & High School Education (CBSE)</h4>
-                                    <p class="font-medium">DAV Public School, Jasola Vihar, New Delhi</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Right Column: Skills -->
-                    <div class="lg:col-span-2">
-                         <div class="scroll-reveal">
-                            <h3 class="text-2xl font-bold mb-8 flex items-center gap-3"><i data-lucide="cpu" class="text-indigo-400"></i> Technical Skills</h3>
-                            <div class="space-y-6">
-                                <div>
-                                    <h4 class="text-lg font-semibold text-indigo-400 mb-3">Areas of Interest</h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Machine Learning</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Deep Learning</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">CV & NLP</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Reinforcement Learning</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">LLMs & AI Agents</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Data Structures</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Algorithms</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-indigo-400 mb-3">Languages & Core Tech</h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">C++</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Python</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">ROS</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">SQL</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Git/GitHub</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">AWS</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Azure</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-indigo-400 mb-3">AI & ML Libraries</h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">PyTorch</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Tensorflow</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">JAX</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">LangChain</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">LangGraph</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Streamlit</span>
-                                    </div>
-                                </div>
-                                 <div>
-                                    <h4 class="text-lg font-semibold text-indigo-400 mb-3">MLOps & Tools</h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">MLflow</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">DVC</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Docker</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Kubernetes</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Prometheus</span>
-                                        <span class="bg-white/10 px-3 py-1 rounded-md text-sm">Grafana</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=tensorflow">
+                    TensorFlow</div>
+                <div class="tech-card"><img class="tech-icon"
+                        src="https://raw.githubusercontent.com/google/jax/main/images/jax_logo_250px.png"> JAX</div>
+                <div class="tech-card"><img class="tech-icon"
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"> Pandas
                 </div>
-                 <!-- Achievements -->
-                <div class="mt-20 scroll-reveal">
-                     <h3 class="text-2xl font-bold mb-8 text-center flex items-center justify-center gap-3"><i data-lucide="award" class="text-indigo-400"></i> Honours & Achievements</h3>
-                     <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="glass-card p-5 rounded-lg text-center">
-                            <i data-lucide="car" class="mx-auto h-10 w-10 text-indigo-400 mb-3"></i>
-                            <p class="font-semibold">6th Globally</p>
-                            <p class="text-sm text-gray-400">Shell's Autonomous Programming Competition '23</p>
-                        </div>
-                        <div class="glass-card p-5 rounded-lg text-center">
-                            <i data-lucide="graduation-cap" class="mx-auto h-10 w-10 text-indigo-400 mb-3"></i>
-                            <p class="font-semibold">Amazon ML Summer School '23</p>
-                            <p class="text-sm text-gray-400">Mentee/Apprenticeship</p>
-                        </div>
-                         <div class="glass-card p-5 rounded-lg text-center">
-                            <i data-lucide="school" class="mx-auto h-10 w-10 text-indigo-400 mb-3"></i>
-                            <p class="font-semibold">2nd Position</p>
-                            <p class="text-sm text-gray-400">Optiver Winter School '23 by Economics Club, IIT Delhi</p>
-                        </div>
-                     </div>
+                <div class="tech-card"><img class="tech-icon"
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg"> NumPy</div>
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=sklearn"> Scikit-Learn
+                </div>
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=docker"> Docker</div>
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=aws"> AWS</div>
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=azure"> Azure</div>
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=fastapi"> FastAPI
+                </div>
+                <div class="tech-card">
+                    <svg class="tech-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 0L1.608 6v12L12 24l10.392-6V6L12 0zm0 3.118l7.696 4.444v8.876L12 20.882l-7.696-4.444V7.562L12 3.118z"
+                            fill="#945DD6" />
+                    </svg>
+                    DVC
+                </div>
+                <div class="tech-card"><img class="tech-icon" src="https://skillicons.dev/icons?i=git"> Git</div>
+                <div class="tech-card">
+                    <svg class="tech-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7v10l10 5 10-5V7l-10-5zm0 2.8l7.2 3.6v7.2L12 19.2l-7.2-3.6V8.4L12 4.8z"
+                            fill="#13B085" />
+                    </svg>
+                    LangChain
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-24">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16 scroll-reveal">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold">My Projects</h2>
-                    <p class="mt-4 text-lg text-gray-400">A selection of my work from my personal portfolio.</p>
+        <section id="achievements">
+            <h2>Achievements</h2>
+            <div class="experience-item">
+                <div class="exp-left">
+                    <div class="exp-role">6th Position Globally</div>
+                    <div class="exp-company">Shell's Autonomous Programming Competition '23 · Team AVERERA IIT(BHU)
+                    </div>
                 </div>
-
-                <div id="project-filters" class="flex flex-wrap justify-center gap-2 mb-12 scroll-reveal">
-                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10 active" data-filter="all">All</button>
-                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10 active" data-filter="ml">ML</button>
-                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10" data-filter="rl">Reinforcement Learning</button>
-                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10" data-filter="cv">Computer Vision</button>
-                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10" data-filter="nlp">NLP</button>
-                    <button class="project-filter-btn px-4 py-2 rounded-md text-sm font-medium transition-colors bg-white/10" data-filter="finance">Finance</button>
-                </div>
-                
-                <div id="all-projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                     <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="rl">
-                        <div class="project-card-content">
-                            <h3 class="text-xl font-bold mb-3">Lead-Prioritization</h3>
-                            <p class="text-gray-400 text-sm">This project implements a reinforcement learning–based lead prioritization system using a Soft Actor-Critic (SAC) model. It ranks leads by priority scores using domain, lead site, and text summary features via attention-based feature extraction and a custom Gymnasium environment. The system supports both CLI and programmatic use, outputs CRM-ready and analytical files, and handles ~100–500 leads/min with GPU acceleration.</p>
-                        </div>
-                    </div>
-                     <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="ml,finance">
-                        <div class="project-card-content">
-                            <h3 class="text-xl font-bold mb-3">Mule Account Detection</h3>
-                            <p class="text-gray-400 text-sm">A fraud detection system to identify mule accounts from a high-dimensional banking dataset. The methodology involved preprocessing over 150 anonymous features and training an XGBoost model, which achieved an accuracy of 99.64% and an R² score of 0.859.</p>
-                        </div>
-                    </div>
-                    <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="cv">
-                        <div class="project-card-content">
-                            <h3 class="text-xl font-bold mb-3">AI Football Match Video Analysis System</h3>
-                            <p class="text-gray-400 text-sm">A comprehensive video analysis system for football matches. A YOLOv5 model was fine-tuned for object detection, combined with ByteTrack for object tracking and KMeans for team classification. The system processes match videos to provide detailed insights into game dynamics.</p>
-                        </div>
-                    </div>
-                    <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="nlp">
-                        <div class="project-card-content">
-                            <h3 class="text-xl font-bold mb-3">Essay AI - Language Proficiency Evaluator</h3>
-                            <p class="text-gray-400 text-sm">Utilized a fine-tuned DeBERTaV3 architecture to assess English language proficiency in essays. The model was enhanced with techniques like layer-wise learning rate decay and a combination of Huber & RMSE loss, achieving an average RMSE of 0.46 in 5-fold cross-validation.</p>
-                        </div>
-                    </div>
-                    <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="ml,finance">
-                        <div class="project-card-content">
-                            <h3 class="text-xl font-bold mb-3">Market Impact Modelling</h3>
-                            <p class="text-gray-400 text-sm">This project models temporary price impact using a two-stage approach: estimating a universal shape parameter (γ ≈ 0.1979) via log-linear regression and predicting a dynamic impact coefficient (αₜ) with LightGBM. It processes multi-ticker order book data, engineering 15+ microstructure features. The pipeline includes data extraction, minute-level aggregation, and synthetic trade simulation.</p>
-                        </div>
-                    </div>
-                    <div class="project-card glass-card rounded-xl p-6 scroll-reveal" data-tags="cv">
-                        <div class="project-card-content">
-                            <h3 class="text-xl font-bold mb-3">Plant Disease Classification</h3>
-                            <p class="text-gray-400 text-sm">This project implements a plant disease classification system using transfer learning with ResNet50 and Focal Loss to address class imbalance. It supports disease detection for pepper, potato, and tomato plants across 8 classes. The pipeline includes data augmentation, training, evaluation, and prediction. The model achieves ~98.5% accuracy and ~98.2% macro recall.</p>
-                        </div>
-                    </div>
+            </div>
+            <div class="experience-item">
+                <div class="exp-left">
+                    <div class="exp-role">Global Rank 852</div>
+                    <div class="exp-company">World Quant Championship '23</div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-24 bg-black/20">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12 scroll-reveal">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold">Get In Touch</h2>
-                    <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">I'm currently open to new opportunities and collaborations. Feel free to reach out!</p>
-                </div>
-                <div class="max-w-xl mx-auto scroll-reveal">
-                    <div class="glass-card p-8 rounded-xl">
-                        <div class="mb-6">
-                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
-                            <input type="text" name="name" id="name" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                        </div>
-                        <div class="mb-6">
-                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                            <input type="email" name="email" id="email" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                        </div>
-                        <div class="mb-6">
-                             <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                            <textarea name="message" id="message" rows="5" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="button" id="send-email-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">Send Message</button>
-                        </div>
-                    </div>
+        <section id="projects">
+            <h2>Live GitHub Projects</h2>
+            <div class="project-grid" id="project-container">
+                <div style="padding: 40px; text-align: center; grid-column: 1 / -1; color: var(--notion-text-muted);">
+                    Establishing connection to GitHub...
                 </div>
             </div>
         </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div id="experience-list">
+                <!-- Data from official LinkedIn scrape -->
+                <div class="experience-item">
+                    <div class="exp-left">
+                        <div class="exp-role">Quantitative Research Analyst</div>
+                        <div class="exp-company">Futures First · Full-time</div>
+                    </div>
+                    <div class="exp-period">Sep 2025 - Present</div>
+                </div>
+                <div class="experience-item">
+                    <div class="exp-left">
+                        <div class="exp-role">AI Engineer</div>
+                        <div class="exp-company">Namekart · Internship</div>
+                    </div>
+                    <div class="exp-period">Mar 2025 - Aug 2025</div>
+                </div>
+                <div class="experience-item">
+                    <div class="exp-left">
+                        <div class="exp-role">Quantitative Research Consultant</div>
+                        <div class="exp-company">WorldQuant · Part-time</div>
+                    </div>
+                    <div class="exp-period">Jun 2023 - Sep 2024</div>
+                </div>
+                <div class="experience-item">
+                    <div class="exp-left">
+                        <div class="exp-role">ML Research Intern</div>
+                        <div class="exp-company">York University · Internship</div>
+                    </div>
+                    <div class="exp-period">May 2024 - Jul 2024</div>
+                </div>
+                <div class="experience-item">
+                    <div class="exp-left">
+                        <div class="exp-role">Head of Public Relations</div>
+                        <div class="exp-company">SOCE, IIT (BHU) Varanasi</div>
+                    </div>
+                    <div class="exp-period">Aug 2023 - Apr 2024</div>
+                </div>
+                <div class="experience-item">
+                    <div class="exp-left">
+                        <div class="exp-role">Amazon ML Summer School</div>
+                        <div class="exp-company">Amazon · Apprenticeship</div>
+                    </div>
+                    <div class="exp-period">Sep 2023 - Oct 2023</div>
+                </div>
+                <div class="experience-item">
+                    <div class="exp-left">
+                        <div class="exp-role">Computer Vision Engineer</div>
+                        <div class="exp-company">Team AVERERA, IIT BHU · Full-time</div>
+                    </div>
+                    <div class="exp-period">Oct 2022 - Aug 2023</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Ajit Priyadarshi · High-Stability Minimalist Build · Zero-Memory Portfolio</p>
+        </footer>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#0c0a18] border-t border-white/10">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-400">
-            <p>&copy; 2024 Ajit Priyadarshi. All Rights Reserved.</p>
-        </div>
-    </footer>
-
     <script>
-        // --- App Initialization ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const cursor = {
-                cursorEl: document.querySelector('.cursor'),
-                dotEl: document.querySelector('.cursor-dot'),
-                
-                init() {
-                    window.addEventListener('mousemove', e => {
-                        this.cursorEl.style.left = `${e.clientX}px`;
-                        this.cursorEl.style.top = `${e.clientY}px`;
-                        this.dotEl.style.left = `${e.clientX}px`;
-                        this.dotEl.style.top = `${e.clientY}px`;
-                    });
+        async function fetchGitHub() {
+            const username = 'Z-Sigma';
+            // Simplified, robust exclusion list (lowercase)
+            const EXCLUSIONS = [
+                'github.io',
+                'inter_iit',
+                'interiit',
+                'inter-iit',
+                'financial_market_volatility_forecasting',
+                'financial-volatility-forecasting',
+                'financial_volatility'
+            ];
+            const container = document.getElementById('project-container');
 
-                    document.querySelectorAll('a, button, [role="button"], input, textarea').forEach(el => {
-                        el.addEventListener('mouseenter', () => this.cursorEl.classList.add('cursor-grow'));
-                        el.addEventListener('mouseleave', () => this.cursorEl.classList.remove('cursor-grow'));
-                    });
-                }
-            };
+            try {
+                const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+                if (!res.ok) throw new Error('GitHub API Error');
+                const allRepos = await res.json();
 
-            const animations = {
-                init() {
-                    const revealElements = document.querySelectorAll('.scroll-reveal');
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('visible');
-                            }
-                        });
-                    }, { threshold: 0.1 });
+                container.innerHTML = '';
 
-                    revealElements.forEach(el => observer.observe(el));
-                }
-            };
-            
-            const projectFilter = {
-                init() {
-                    const filterButtons = document.querySelectorAll('.project-filter-btn');
-                    const projectCards = document.querySelectorAll('.project-card');
-
-                    filterButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const filter = button.dataset.filter;
-                            
-                            // Update active button
-                            filterButtons.forEach(btn => btn.classList.remove('active'));
-                            button.classList.add('active');
-
-                            // Filter projects
-                            projectCards.forEach(card => {
-                                const tags = card.dataset.tags.split(',');
-                                if (filter === 'all' || tags.includes(filter)) {
-                                    card.classList.remove('filtered-out');
-                                } else {
-                                    card.classList.add('filtered-out');
-                                }
-                            });
-                        });
-                    });
-                }
-            };
-            
-            const particleAnimation = {
-                canvas: document.getElementById('particle-canvas'),
-                ctx: null,
-                particles: [],
-                mouse: { x: null, y: null, radius: 150 },
-                
-                init() {
-                    if (!this.canvas) return;
-                    this.ctx = this.canvas.getContext('2d');
-                    this.resizeCanvas();
-                    window.addEventListener('resize', () => this.resizeCanvas());
-                    window.addEventListener('mousemove', e => {
-                        const rect = this.canvas.getBoundingClientRect();
-                        this.mouse.x = e.clientX - rect.left;
-                        this.mouse.y = e.clientY - rect.top;
-                    });
-                    this.createParticles();
-                    this.animate();
-                },
-
-                resizeCanvas() {
-                    this.canvas.width = this.canvas.offsetWidth;
-                    this.canvas.height = this.canvas.offsetHeight;
-                    this.particles = []; // Recreate particles on resize
-                    this.createParticles();
-                },
-
-                createParticles() {
-                    const particleCount = Math.floor(this.canvas.width / 20);
-                    for (let i = 0; i < particleCount; i++) {
-                        let size = Math.random() * 2 + 1;
-                        let x = Math.random() * (this.canvas.width - size * 2) + size;
-                        let y = Math.random() * (this.canvas.height - size * 2) + size;
-                        let directionX = (Math.random() * .4) - .2;
-                        let directionY = (Math.random() * .4) - .2;
-                        let color = 'rgba(79, 70, 229, 0.6)';
-                        this.particles.push({ x, y, directionX, directionY, size, color });
-                    }
-                },
-
-                animate() {
-                    requestAnimationFrame(() => this.animate());
-                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-                    for (let i = 0; i < this.particles.length; i++) {
-                        this.updateParticle(this.particles[i]);
-                    }
-                    this.connectParticles();
-                },
-
-                updateParticle(p) {
-                    if (p.x + p.size > this.canvas.width || p.x - p.size < 0) p.directionX = -p.directionX;
-                    if (p.y + p.size > this.canvas.height || p.y - p.size < 0) p.directionY = -p.directionY;
-                    p.x += p.directionX;
-                    p.y += p.directionY;
-                    this.drawParticle(p);
-                },
-
-                drawParticle(p) {
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2, false);
-                    this.ctx.fillStyle = p.color;
-                    this.ctx.fill();
-                },
-                
-                connectParticles() {
-                    let opacityValue = 1;
-                    for (let a = 0; a < this.particles.length; a++) {
-                        for (let b = a; b < this.particles.length; b++) {
-                            let distance = Math.sqrt(
-                                (this.particles[a].x - this.particles[b].x) * (this.particles[a].x - this.particles[b].x) +
-                                (this.particles[a].y - this.particles[b].y) * (this.particles[a].y - this.particles[b].y)
-                            );
-                            if (distance < 120) {
-                                opacityValue = 1 - (distance / 120);
-                                this.ctx.strokeStyle = `rgba(79, 70, 229, ${opacityValue})`;
-                                this.ctx.lineWidth = 1;
-                                this.ctx.beginPath();
-                                this.ctx.moveTo(this.particles[a].x, this.particles[a].y);
-                                this.ctx.lineTo(this.particles[b].x, this.particles[b].y);
-                                this.ctx.stroke();
-                            }
-                        }
-                    }
-                }
-            };
-
-            const contactForm = {
-                sendBtn: document.getElementById('send-email-btn'),
-                
-                init() {
-                    if (!this.sendBtn) return;
-                    this.sendBtn.addEventListener('click', () => this.sendEmail());
-                },
-
-                sendEmail() {
-                    const name = document.getElementById('name').value;
-                    const email = document.getElementById('email').value;
-                    const message = document.getElementById('message').value;
-
-                    if (!message) {
-                        return;
-                    }
-
-                    const subject = `Portfolio Contact from ${name}`;
-                    const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
-
-                    const mailtoLink = `mailto:ajitpriyadarshi2007@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-                    window.location.href = mailtoLink;
-                }
-            };
-
-
-            // Initialize all modules
-            cursor.init();
-            animations.init();
-            projectFilter.init();
-            particleAnimation.init();
-            contactForm.init();
-            
-            // Setup mobile menu (remains simple)
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuIcons = mobileMenuButton.querySelectorAll('i');
-
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                menuIcons.forEach(icon => icon.classList.toggle('hidden'));
-            });
-
-            document.querySelectorAll('#mobile-menu a, header a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (!mobileMenu.classList.contains('hidden')) {
-                         mobileMenu.classList.add('hidden');
-                         menuIcons[0].classList.remove('hidden');
-                         menuIcons[1].classList.add('hidden');
-                    }
+                const filtered = allRepos.filter(repo => {
+                    const name = repo.name.toLowerCase();
+                    const isExcluded = EXCLUSIONS.some(term => name.includes(term));
+                    return !isExcluded && !repo.fork;
                 });
-            });
-            
-            lucide.createIcons();
-        });
+
+                filtered.slice(0, 12).forEach(repo => {
+                    const card = document.createElement('a');
+                    card.href = repo.html_url;
+                    card.target = '_blank';
+                    card.className = 'notion-card';
+                    card.innerHTML = `
+                        <div class="card-name">${repo.name}</div>
+                        <div class="card-desc">${repo.description || "Experimental ML/Quant project and advanced research repository."}</div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                container.innerHTML = '<div style="color:red; font-size:12px;">GitHub live feed temporarily offline.</div>';
+            }
+        }
+        fetchGitHub();
     </script>
 </body>
+
 </html>
-
-
